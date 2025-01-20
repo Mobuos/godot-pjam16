@@ -1,15 +1,20 @@
 extends Node2D
 
-@export var curve: Curve
-
 @onready var tile_map := $"../Background" as TileMapLayer
-@onready var sprite := $Sprite2D as Sprite2D
 
 var is_moving := false
 var input_queue: Array[String] = []
 
 var DEBUG := false
 var debug_label: RichTextLabel
+
+var speed := Vector2.ZERO
+var acc := 250.0
+var max_speed := 800.0
+var target_tile := Vector2i.ZERO
+var overshoot_distance: float = 8.0
+var is_overshooting: bool = false
+
 
 func _ready() -> void:
 	if DEBUG:
@@ -33,6 +38,38 @@ func _input(event: InputEvent) -> void:
 		elif event.is_action_released(action_name):
 			input_queue.erase(action_name)
 			break
+
+
+func _physics_process(delta: float) -> void:
+	if not is_moving:
+		return
+	
+	var target_position := tile_map.map_to_local(target_tile)
+	var direction := (target_position - global_position).normalized()
+	var distance_to_target := global_position.distance_to(target_position)
+	
+	speed += direction * acc * delta
+	speed.clamp(Vector2.ZERO, Vector2(max_speed, max_speed))
+	
+	if is_overshooting:
+		# Snap back to the target position after overshooting
+		if distance_to_target <= 5.0:
+			position = target_position
+			speed = Vector2.ZERO
+			is_moving = false
+			is_overshooting = false
+		else:
+			position += speed
+	else:
+		# Normal movement logic
+		if distance_to_target < max(abs(speed.x), abs(speed.y)):
+			# Allow overshoot
+			position = target_position
+			position += direction * overshoot_distance
+			speed = Vector2.ZERO
+			is_overshooting = true
+		else:
+			position += speed
 
 
 func _process(_delta: float) -> void:
@@ -59,36 +96,21 @@ func move(direction: Vector2i) -> void:
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
 	
 	# Find target_tile
-	var target_tile := current_tile
+	target_tile = current_tile
 	while true:
 		var next_tile := Vector2i(
 				target_tile.x + direction.x,
 				target_tile.y + direction.y
 		)
 		var tile_data: TileData = tile_map.get_cell_tile_data(next_tile)
-		if tile_data.get_custom_data("walkable"):
+		if tile_data.get_custom_data("walkable") and \
+			not get_parent().enemies.has(next_tile):
 			target_tile = next_tile
 		else:
 			break
 	
 	if target_tile == current_tile:
+		#TODO: add small overshoot when trying to hit the wall
 		return
-	
-	# Move the player
-	#TODO: Re-do movement logic to use actual acceleration and speed for movement instead of animation
-	is_moving = true
-	global_position = tile_map.map_to_local(target_tile)
-	sprite.global_position = tile_map.map_to_local(current_tile)
-	
-	var tween := create_tween()
-	tween.tween_property(sprite, "global_position", global_position, 0.05 * current_tile.distance_to(target_tile)) \
-			.set_custom_interpolator(movement_curve)
-	await tween.finished
-	
-	is_moving = false
-	
-	#if DEBUG:
-		#debug_label.global_position = tile_map.map_to_local(target_tile) - Vector2(16., 16.)
-		#debug_label.text = "[color=black]%s[/color]" % target_tile
-func movement_curve(value: float) -> float:
-	return curve.sample_baked(value)
+	else:
+		is_moving = true

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsvq83a6758cn"]
+
+[ext_resource type="Texture2D" uid="uid://d0foqvcmiv51m" path="res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/red_character.png" id="1_p6fqc"]
+
+[node name="Enemy" type="Node2D" groups=["Enemies"]]
+position = Vector2(288, 352)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_p6fqc")
