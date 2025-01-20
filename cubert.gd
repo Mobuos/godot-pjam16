@@ -1,12 +1,14 @@
 extends Node2D
 
-@onready var tile_map = $"../Background" as TileMapLayer
-@onready var sprite = $Sprite2D
+@export var curve: Curve
+
+@onready var tile_map := $"../Background" as TileMapLayer
+@onready var sprite := $Sprite2D as Sprite2D
 
 var is_moving := false
-var input_queue := []
+var input_queue: Array[String] = []
 
-var DEBUG = false
+var DEBUG := false
 var debug_label: RichTextLabel
 
 func _ready() -> void:
@@ -19,8 +21,11 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	print(event)
-	for action_name in ["ui_up", "ui_down", "ui_left", "ui_right"]:
+	#TODO: Revise input queue to be able to customize how many frames in the past of input we are
+	#      storing. Don't add same input to the queue, don't consume the queue until !is_moving
+	#      Might even reduce the queue to just a single item.
+	var actions: Array[String] = ["ui_up", "ui_down", "ui_left", "ui_right"]
+	for action_name in actions:
 		if event.is_action_pressed(action_name):
 			if not input_queue.has(action_name):
 				input_queue.push_front(action_name)
@@ -30,16 +35,16 @@ func _input(event: InputEvent) -> void:
 			break
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for action_name in input_queue:
 		if action_name == "ui_up":
-			move(Vector2.UP)
+			move(Vector2i.UP)
 		elif action_name == "ui_down":
-			move(Vector2.DOWN)
+			move(Vector2i.DOWN)
 		elif action_name == "ui_left":
-			move(Vector2.LEFT)
+			move(Vector2i.LEFT)
 		elif action_name == "ui_right":
-			move(Vector2.RIGHT)
+			move(Vector2i.RIGHT)
 		
 	#if DEBUG:
 		#var mouse_pos = get_viewport().get_mouse_position()
@@ -47,7 +52,7 @@ func _process(delta: float) -> void:
 		#debug_label.text = "[color=black]%s[/color]" % tile_map.local_to_map(mouse_pos)
 
 
-func move(direction: Vector2) -> void:
+func move(direction: Vector2i) -> void:
 	if is_moving:
 		return
 		
@@ -66,14 +71,18 @@ func move(direction: Vector2) -> void:
 		else:
 			break
 	
+	if target_tile == current_tile:
+		return
+	
 	# Move the player
+	#TODO: Re-do movement logic to use actual acceleration and speed for movement instead of animation
 	is_moving = true
 	global_position = tile_map.map_to_local(target_tile)
 	sprite.global_position = tile_map.map_to_local(current_tile)
 	
-	var tween = create_tween()
-	tween.tween_property(sprite, "global_position", global_position, 0.2) \
-			.set_trans(Tween.TRANS_SINE) #TODO Use a more impactful animation
+	var tween := create_tween()
+	tween.tween_property(sprite, "global_position", global_position, 0.05 * current_tile.distance_to(target_tile)) \
+			.set_custom_interpolator(movement_curve)
 	await tween.finished
 	
 	is_moving = false
@@ -81,4 +90,5 @@ func move(direction: Vector2) -> void:
 	#if DEBUG:
 		#debug_label.global_position = tile_map.map_to_local(target_tile) - Vector2(16., 16.)
 		#debug_label.text = "[color=black]%s[/color]" % target_tile
-	
+func movement_curve(value: float) -> float:
+	return curve.sample_baked(value)
