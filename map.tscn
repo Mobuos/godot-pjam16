@@ -149,39 +149,36 @@ script = ExtResource("1_ptmnf")
 tile_map_data = PackedByteArray("AAAAAAAABAAHAAEAAAAAAAEABAAHAAEAAAAAAAIABAAHAAEAAAAAAAMABAAHAAEAAAAAAAQABAAHAAEAAAAAAAUABAAHAAEAAAAAAAYABAAHAAEAAAAAAAcABAAHAAEAAAAAAAgABAAHAAEAAAAAAAkABAAHAAEAAAABAAkABAAHAAEAAAACAAkABAAHAAEAAAADAAkABAAHAAEAAAAEAAkABAAHAAEAAAAFAAkABAAHAAEAAAAGAAkABAAHAAEAAAAHAAkABAAHAAEAAAAIAAkABAAHAAEAAAAJAAkABAAHAAEAAAAJAAgABAAHAAEAAAAJAAcABAAHAAEAAAAJAAYABAAHAAEAAAAJAAUABAAHAAEAAAAJAAQABAAHAAEAAAAJAAMABAAHAAEAAAAJAAIABAAHAAEAAAAJAAEABAAHAAEAAAAJAAAABAAHAAEAAAAIAAAABAAHAAEAAAAHAAAABAAHAAEAAAAGAAAABAAHAAEAAAAFAAAABAAHAAEAAAAEAAAABAAHAAEAAAADAAAABAAHAAEAAAACAAAABAAHAAEAAAABAAAABAAHAAEAAAABAAEABAAAAAEAAAABAAIABAAAAAEAAAABAAMABAAAAAEAAAABAAQABAAAAAEAAAABAAUABAAAAAEAAAABAAYABAAAAAEAAAABAAcABAAAAAEAAAABAAgABAAAAAEAAAACAAEABAAAAAEAAAACAAIABAAAAAEAAAACAAMABAAAAAEAAAACAAQABAAAAAEAAAACAAUABAAAAAEAAAACAAYABAAAAAEAAAACAAcABAAAAAEAAAACAAgABAAAAAEAAAADAAEABAAAAAEAAAADAAIABAAAAAEAAAADAAMABAAAAAEAAAADAAQABAAAAAEAAAADAAUABAAAAAEAAAADAAYABAAAAAEAAAADAAcABAAAAAEAAAADAAgABAAHAAEAAAAEAAEABAAAAAEAAAAEAAIABAAAAAEAAAAEAAMABAAAAAEAAAAEAAQABAAAAAEAAAAEAAUABAAAAAEAAAAEAAYABAAAAAEAAAAEAAcABAAAAAEAAAAEAAgABAAAAAEAAAAFAAEABAAHAAEAAAAFAAIABAAAAAEAAAAFAAMABAAAAAEAAAAFAAQABAAAAAEAAAAFAAUABAAHAAEAAAAFAAYABAAAAAEAAAAFAAcABAAAAAEAAAAFAAgABAAAAAEAAAAGAAEABAAAAAEAAAAGAAIABAAAAAEAAAAGAAMABAAAAAEAAAAGAAQABAAAAAEAAAAGAAUABAAHAAEAAAAGAAYABAAAAAEAAAAGAAcABAAAAAEAAAAGAAgABAAAAAEAAAAHAAEABAAAAAEAAAAHAAIABAAAAAEAAAAHAAMABAAAAAEAAAAHAAQABAAAAAEAAAAHAAUABAAHAAEAAAAHAAYABAAAAAEAAAAHAAcABAAAAAEAAAAHAAgABAAAAAEAAAAIAAEABAAAAAEAAAAIAAIABAAAAAEAAAAIAAMABAAAAAEAAAAIAAQABAAAAAEAAAAIAAUABAAAAAEAAAAIAAYABAAAAAEAAAAIAAcABAAAAAEAAAAIAAgABAAAAAEAAAA=")
 tile_set = SubResource("TileSet_2s7wk")
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("MAP")]
 position = Vector2(96, 96)
 script = ExtResource("2_ccrdp")
+MAP = NodePath("..")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("3_2epf1")
 
-[node name="MovementComponent" parent="Player" node_paths=PackedStringArray("tile_map", "controller") instance=ExtResource("5_oske6")]
-tile_map = NodePath("../../Background")
-controller = NodePath("../..")
+[node name="MovementComponent" parent="Player" instance=ExtResource("5_oske6")]
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("5_ym0w8")]
-tile_map = NodePath("../Background")
+[node name="Enemy" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
+MAP = NodePath("..")
 
-[node name="Enemy2" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("5_ym0w8")]
-position = Vector2(224, 288)
-tile_map = NodePath("../Background")
+[node name="Enemy2" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
+position = Vector2(224, 96)
+MAP = NodePath("..")
 
-[node name="Enemy3" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("5_ym0w8")]
+[node name="Enemy3" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
 position = Vector2(416, 288)
-tile_map = NodePath("../Background")
+MAP = NodePath("..")
 
-[node name="Enemy4" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("5_ym0w8")]
+[node name="Enemy4" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
 position = Vector2(544, 160)
-tile_map = NodePath("../Background")
+MAP = NodePath("..")
 
-[node name="Enemy5" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("5_ym0w8")]
+[node name="Enemy5" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
 position = Vector2(416, 544)
-tile_map = NodePath("../Background")
+MAP = NodePath("..")
 
-[node name="Enemy6" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("5_ym0w8")]
-position = Vector2(160, 416)
-tile_map = NodePath("../Background")
-
-[connection signal="_finished_movement" from="Player/MovementComponent" to="Player" method="_finished_movement"]
+[node name="Enemy6" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
+position = Vector2(96, 160)
+MAP = NodePath("..")

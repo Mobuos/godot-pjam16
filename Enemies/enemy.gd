@@ -1,27 +1,38 @@
+class_name Enemy
 extends Node2D
 
-@onready var cMovement := $MovementComponent as MovementComponent
-@onready var controller: Node = get_parent()
-@export var tile_map: TileMapLayer
+@export var cMovement: MovementComponent
+@export var MAP: Map
 
-var dead_texture = preload("res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/purple_character.png")
+var target_position: Vector2i
+var is_moving := false
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	get_parent().enemy_hit.connect(_on_hit)
-	cMovement.tile_map = tile_map
-	cMovement.controller = controller
-	pass # Replace with function body.
+var dead_texture: Texture2D = preload("res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/purple_character.png")
 
 
-func _on_hit(enemy: Node2D, direction: Vector2i) -> void:
+func _physics_process(delta: float) -> void:
+	if is_moving:
+		# If we finished moving:
+		if not cMovement.move_to(delta, self, target_position):
+			is_moving = false
+			#var last_speed := cMovement.speed
+			cMovement.speed = Vector2.ZERO
+			
+			#TODO: Signal further?
+			
+			#TODO: die
+			$Sprite2D.texture = dead_texture
+
+func _on_hit(direction: Vector2i, speed: Vector2, enemy: Enemy) -> void:
 	if enemy == self:
-		var current_tile: Vector2i = tile_map.local_to_map(global_position)
-		controller.enemies.erase(current_tile)
-		var target_position: = cMovement.move(direction, current_tile)
-		controller.enemies[tile_map.local_to_map(target_position)] = self
-
-
-func _finished_movement(direction: Vector2i, hit: Node2D) -> void:
-	var spr: Sprite2D = $Sprite2D as Sprite2D
-	spr.texture = dead_texture
+		cMovement.speed = speed
+		
+		# Find target position and start movement
+		var current_tile := MAP.local_to_map(global_position)
+		var hit_tile := MAP.tile_raycast(current_tile, direction)
+		var target_tile := hit_tile - direction
+		target_position = MAP.map_to_local(target_tile)
+		is_moving = true
+		
+		# Enemy should exist in the logical map
+		assert(MAP.update_enemy(current_tile, target_tile))

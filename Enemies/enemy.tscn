@@ -4,14 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://d0foqvcmiv51m" path="res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/red_character.png" id="1_p6fqc"]
 [ext_resource type="PackedScene" uid="uid://bopdvgyfkewbd" path="res://Components/movement_component.tscn" id="3_nhpcm"]
 
-[node name="Enemy" type="Node2D" groups=["Enemies"]]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("cMovement") groups=["Enemies"]]
 position = Vector2(288, 352)
 script = ExtResource("1_eishj")
+cMovement = NodePath("MovementComponent")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_p6fqc")
 
 [node name="MovementComponent" parent="." instance=ExtResource("3_nhpcm")]
-
-[connection signal="_finished_movement" from="MovementComponent" to="." method="_finished_movement"]

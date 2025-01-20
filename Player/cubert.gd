@@ -1,29 +1,35 @@
 extends Node2D
 
-@onready var tile_map := $"../Background" as TileMapLayer
+@export var MAP: Map
 @onready var cMovement := $MovementComponent as MovementComponent
 
+# Input
 var curr_input: String = ""
 var last_input: String = ""
 const input_buffer_time: float = 0.3
 var input_life := input_buffer_time
 
-var DEBUG := false
-var debug_label: RichTextLabel
+# Movement
+var target_position: Vector2
+var is_moving := false
+
+# Collision
+var direction: Vector2i
+var hit_tile: Vector2i
+
+var _input2direction = {
+		"ui_up": Vector2i.UP,
+		"ui_down": Vector2i.DOWN,
+		"ui_right": Vector2i.RIGHT,
+		"ui_left": Vector2i.LEFT
+}
+
 
 func _ready() -> void:
-	if DEBUG:
-		debug_label = RichTextLabel.new()
-		debug_label.size = Vector2(100., 100.)
-		debug_label.bbcode_enabled = true
-		debug_label.text = "[color=black]test[/color]"
-		add_child(debug_label)
+	pass
 
 
 func _input(event: InputEvent) -> void:
-	#TODO: Revise input queue to be able to customize how many frames in the past of input we are
-	#      storing. Don't add same input to the queue, don't consume the queue until !is_moving
-	#      Might even reduce the queue to just a single item.
 	var actions: Array[String] = ["ui_up", "ui_down", "ui_left", "ui_right"]
 	for action_name in actions:
 		if event.is_action_pressed(action_name):
@@ -32,35 +38,35 @@ func _input(event: InputEvent) -> void:
 				input_life = input_buffer_time
 
 
+func _physics_process(delta: float) -> void:
+	if is_moving:
+		# If we finished moving:
+		if not cMovement.move_to(delta, self, target_position):
+			is_moving = false
+			last_input = ""
+			
+			var last_speed := cMovement.speed
+			cMovement.speed = Vector2.ZERO
+			
+			# Signal enemies if we hit one of them
+			var enemy: Enemy = MAP.get_enemy(hit_tile)
+			if enemy:
+				MAP.enemy_hit.emit(direction, last_speed, enemy)
+
+
 func _process(delta: float) -> void:
 	if input_life > 0.0:
 		input_life -= delta
 		
-	var current_tile: Vector2i = tile_map.local_to_map(global_position)
-	if not cMovement.is_moving() and input_life > 0.0:
+	var current_tile: Vector2i = MAP.local_to_map(global_position)
+	if not is_moving and input_life > 0.0 and curr_input != "":
+		# Get direction of movement and clear input
 		last_input = curr_input
-		if curr_input == "ui_up":
-			cMovement.move(Vector2i.UP, current_tile)
-		elif curr_input == "ui_down":
-			cMovement.move(Vector2i.DOWN, current_tile)
-		elif curr_input == "ui_left":
-			cMovement.move(Vector2i.LEFT, current_tile)
-		elif curr_input == "ui_right":
-			cMovement.move(Vector2i.RIGHT, current_tile)
+		direction = _input2direction[curr_input]
 		curr_input = ""
 		
-	#if DEBUG:
-		#var mouse_pos = get_viewport().get_mouse_position()
-		#debug_label.global_position = mouse_pos + Vector2(10, 10)
-		#debug_label.text = "[color=black]%s[/color]" % tile_map.local_to_map(mouse_pos)
-
-
-# Checks if we are supposed to emit a hit signal
-# Called after impact
-func _finished_movement(direction: Vector2i, hit: Node2D) -> bool:
-	last_input = ""
-	if hit != null:
-		get_parent().enemy_hit.emit(hit, direction)
-		return true
-	else:
-		return false
+		# Find target position and start movement
+		hit_tile = MAP.tile_raycast(current_tile, direction)
+		var target_tile := hit_tile - direction
+		target_position = MAP.map_to_local(target_tile)
+		is_moving = true
