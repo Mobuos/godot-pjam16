@@ -36,7 +36,7 @@ func _on_hit(direction: Vector2i, velocity: float, enemy: Enemy) -> void:
 		
 		shaker.increase_trauma2(direction * 0.3)
 		#TODO: sound effect
-		cMovement.velocity = max(400.0, velocity)
+		cMovement.velocity = max(1000.0, velocity * 1.2)
 		
 		# Find target position and start movement
 		var current_tile := MAP.local_to_map(global_position)

@@ -160,8 +160,8 @@ metadata/_edit_group_ = true
 texture = ExtResource("3_2epf1")
 
 [node name="MovementComponent" parent="Player" instance=ExtResource("5_oske6")]
-acceleration = 1500.0
-max_velocity = 3000.0
+acceleration = 2000.0
+max_velocity = 4000.0
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
 MAP = NodePath("..")

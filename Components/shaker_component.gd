@@ -18,8 +18,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_trauma.x -= 1 * delta
 	_trauma.y -= 1 * delta
-	_trauma.x = max(0.0, _trauma.x)
-	_trauma.y = max(0.0, _trauma.y)
+	_trauma.x = clamp(_trauma.x, 0.0, 1.0)
+	_trauma.y = clamp(_trauma.y, 0.0, 1.0)
 
 	
 	var shake: float = max(_trauma.x ** 2, _trauma.y ** 2)

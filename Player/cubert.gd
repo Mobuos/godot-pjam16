@@ -55,10 +55,12 @@ func _physics_process(delta: float) -> void:
 			if enemy:
 				MAP.enemy_hit.emit(direction, last_velocity, enemy)
 			else:
-				print("Wall.")
-				#TODO: sound effect
-				shaker.increase_trauma2(direction * 0.5)
-				#TODO: particles
+				if (last_velocity < 50):
+					pass
+				else:
+					#TODO: sound effect
+					shaker.increase_trauma2(direction * 0.5)
+					#TODO: particles
 
 func _process(delta: float) -> void:
 	if input_life > 0.0:

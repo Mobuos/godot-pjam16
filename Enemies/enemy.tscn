@@ -15,4 +15,4 @@ texture = ExtResource("1_p6fqc")
 
 [node name="MovementComponent" parent="." instance=ExtResource("3_nhpcm")]
 acceleration = 0.0
-max_velocity = 480.0
+max_velocity = 4000.0
