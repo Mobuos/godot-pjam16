@@ -45,14 +45,18 @@ func _physics_process(delta: float) -> void:
 			is_moving = false
 			last_input = ""
 			
-			var last_speed := cMovement.speed
-			cMovement.speed = Vector2.ZERO
+			var last_velocity := cMovement.velocity
+			cMovement.velocity = 0.0
 			
 			# Signal enemies if we hit one of them
 			var enemy: Enemy = MAP.get_enemy(hit_tile)
 			if enemy:
-				MAP.enemy_hit.emit(direction, last_speed, enemy)
-
+				MAP.enemy_hit.emit(direction, last_velocity, enemy)
+			else:
+				print("Wall.")
+				#TODO: sound effect
+				#TODO: screen shake
+				#TODO: particles
 
 func _process(delta: float) -> void:
 	if input_life > 0.0:
@@ -70,3 +74,9 @@ func _process(delta: float) -> void:
 		var target_tile := hit_tile - direction
 		target_position = MAP.map_to_local(target_tile)
 		is_moving = true
+
+
+func _freeze_frame(time_scale: float, duration: float) -> void:
+		Engine.time_scale = time_scale
+		await(get_tree().create_timer(duration, true, false, true).timeout)
+		Engine.time_scale = 1

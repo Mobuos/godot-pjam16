@@ -159,12 +159,14 @@ metadata/_edit_group_ = true
 texture = ExtResource("3_2epf1")
 
 [node name="MovementComponent" parent="Player" instance=ExtResource("5_oske6")]
+acceleration = 1000.0
+max_velocity = 2500.0
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
 MAP = NodePath("..")
 
 [node name="Enemy2" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
-position = Vector2(224, 96)
+position = Vector2(416, 224)
 MAP = NodePath("..")
 
 [node name="Enemy3" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
@@ -180,5 +182,5 @@ position = Vector2(416, 544)
 MAP = NodePath("..")
 
 [node name="Enemy6" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("5_ym0w8")]
-position = Vector2(96, 160)
+position = Vector2(96, 352)
 MAP = NodePath("..")

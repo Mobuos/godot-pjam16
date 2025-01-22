@@ -12,20 +12,26 @@ var dead_texture: Texture2D = preload("res://kenney_scribble-dungeons/PNG/Defaul
 
 func _physics_process(delta: float) -> void:
 	if is_moving:
+		if delta < 0.0001:
+			print(delta)
 		# If we finished moving:
 		if not cMovement.move_to(delta, self, target_position):
 			is_moving = false
-			#var last_speed := cMovement.speed
-			cMovement.speed = Vector2.ZERO
+			#var last_velocity := cMovement.velocity
+			cMovement.velocity = 0.0
 			
 			#TODO: Signal further?
 			
 			#TODO: die
+			#TODO: - Screen shake on direction
+			#TODO: - Sound effect
 			$Sprite2D.texture = dead_texture
 
-func _on_hit(direction: Vector2i, speed: Vector2, enemy: Enemy) -> void:
+func _on_hit(direction: Vector2i, velocity: float, enemy: Enemy) -> void:
 	if enemy == self:
-		cMovement.speed = speed
+		#TODO: screen shake light pointing at diretion
+		#TODO: sound effect
+		cMovement.velocity = max(400.0, velocity)
 		
 		# Find target position and start movement
 		var current_tile := MAP.local_to_map(global_position)
