@@ -2,6 +2,8 @@ extends Node2D
 
 @export var MAP: Map
 @onready var cMovement := $MovementComponent as MovementComponent
+@onready var shaker := %ShakerComponent as ShakerComponent
+
 
 # Input
 var curr_input: String = ""
@@ -55,7 +57,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				print("Wall.")
 				#TODO: sound effect
-				#TODO: screen shake
+				shaker.increase_trauma2(direction * 0.5)
 				#TODO: particles
 
 func _process(delta: float) -> void:
