@@ -11,6 +11,7 @@ var _trauma := Vector2.ZERO
 
 
 func _ready() -> void:
+	Global.shaker = self
 	_noiser.noise_type = FastNoiseLite.TYPE_PERLIN
 	camera.ignore_rotation = false
 

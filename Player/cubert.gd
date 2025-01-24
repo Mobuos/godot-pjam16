@@ -2,7 +2,7 @@ extends Node2D
 
 @export var MAP: Map
 @onready var cMovement := $MovementComponent as MovementComponent
-@onready var shaker := %ShakerComponent as ShakerComponent
+@onready var shaker: ShakerComponent = Global.shaker
 
 
 # Input

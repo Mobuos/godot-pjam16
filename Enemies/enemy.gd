@@ -4,12 +4,13 @@ extends Node2D
 @export var cMovement: MovementComponent
 @export var MAP: Map
 
-@onready var shaker := %ShakerComponent as ShakerComponent
+@onready var shaker: ShakerComponent = Global.shaker
 
 var target_position: Vector2i
 var is_moving := false
 var last_direction: Vector2i
 
+var alive := true
 var dead_texture: Texture2D = preload("res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/purple_character.png")
 
 
@@ -21,7 +22,9 @@ func _physics_process(delta: float) -> void:
 			#var last_velocity := cMovement.velocity
 			cMovement.velocity = 0.0
 			
-			#TODO: die
+			if alive:
+				MAP.kill_enemy()
+				alive = false
 			
 			#TODO: Signal further?
 			# Remember to move this elsewhere if we signal further in the future

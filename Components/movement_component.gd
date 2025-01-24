@@ -14,9 +14,6 @@ var velocity := 0.0
 ## Does not reset its own speed after finishing.
 func move_to(delta: float, node: Node2D, 
 		target_position: Vector2) -> bool:
-	if Engine.time_scale < 1.0:
-		print("teste")
-		print(delta)
 	
 	var direction: Vector2i = (target_position - node.global_position).normalized()
 	var distance_to_target: float = node.global_position.distance_to(target_position)
