@@ -6,4 +6,5 @@ extends ColorRect
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	visible = true
 	_anim_player.play_backwards("Fade")
