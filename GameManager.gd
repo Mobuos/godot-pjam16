@@ -34,3 +34,7 @@ func load_map(num: int) -> void:
 		await scene_transition._anim_player.animation_finished
 		
 		set_process_input(true)
+
+
+func _on_reset_button_pressed() -> void:
+	load_map(curr_map_index)

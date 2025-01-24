@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnk1gsvm0xhxg"]
+
+[ext_resource type="Script" path="res://Player/cubert.gd" id="1_5bvnp"]
+[ext_resource type="Texture2D" uid="uid://dqjihjiabjukh" path="res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/yellow_character.png" id="2_3l8mh"]
+[ext_resource type="PackedScene" uid="uid://bopdvgyfkewbd" path="res://Components/movement_component.tscn" id="3_3xe21"]
+
+[node name="Player" type="Node2D"]
+position = Vector2(96, 160)
+script = ExtResource("1_5bvnp")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3l8mh")
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_3xe21")]
+acceleration = 2000.0
+max_velocity = 4000.0

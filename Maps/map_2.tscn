@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://6oek52nkm10a"]
+[gd_scene load_steps=7 format=4 uid="uid://6oek52nkm10a"]
 
 [ext_resource type="Script" path="res://Maps/map.gd" id="1_vsstu"]
 [ext_resource type="Texture2D" uid="uid://dhmom6en76cl8" path="res://kenney_scribble-dungeons/Tilesheet/tilesheet.png" id="2_2l8jb"]
-[ext_resource type="Script" path="res://Player/cubert.gd" id="3_mitpk"]
-[ext_resource type="Texture2D" uid="uid://dqjihjiabjukh" path="res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/yellow_character.png" id="4_xwg0w"]
-[ext_resource type="PackedScene" uid="uid://bopdvgyfkewbd" path="res://Components/movement_component.tscn" id="5_71wiv"]
+[ext_resource type="PackedScene" uid="uid://bnk1gsvm0xhxg" path="res://Player/player.tscn" id="3_4oyx3"]
 [ext_resource type="PackedScene" uid="uid://bsvq83a6758cn" path="res://Enemies/enemy.tscn" id="6_0udeq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d0rqe"]
@@ -150,18 +148,9 @@ TILE_MAP = NodePath("Background")
 tile_map_data = PackedByteArray("AAAAAAEABAAHAAEAAAAAAAIABAAHAAEAAAAAAAMABAAHAAEAAAABAAEABAAAAAEAAAABAAIABAAAAAEAAAABAAMABAAAAAEAAAACAAEABAAAAAEAAAACAAIABAAAAAEAAAACAAMABAAAAAEAAAADAAEABAAAAAEAAAADAAIABAAAAAEAAAADAAMABAAAAAEAAAAEAAEABAAAAAEAAAAEAAIABAAAAAEAAAAEAAMABAAAAAEAAAAFAAEABAAAAAEAAAAFAAIABAAAAAEAAAAFAAMABAAAAAEAAAAGAAEABAAAAAEAAAAGAAIABAAAAAEAAAAGAAMABAAAAAEAAAAHAAEABAAAAAEAAAAHAAIABAAAAAEAAAAHAAMABAAAAAEAAAAIAAEABAAAAAEAAAAIAAIABAAAAAEAAAAIAAMABAAAAAEAAAAJAAEABAAAAAEAAAAJAAMABAAAAAEAAAAJAAIABAAAAAEAAAAKAAEABAAHAAEAAAAKAAIABAAHAAEAAAAKAAMABAAHAAEAAAAAAAQABAAHAAEAAAABAAQABAAHAAEAAAACAAQABAAHAAEAAAADAAQABAAHAAEAAAAEAAQABAAHAAEAAAAEAAUABAAHAAEAAAAEAAYABAAHAAEAAAAFAAQABAAAAAEAAAAFAAUABAAAAAEAAAAFAAYABAAAAAEAAAAGAAQABAAAAAEAAAAGAAUABAAAAAEAAAAGAAYABAAAAAEAAAAHAAQABAAAAAEAAAAHAAUABAAAAAEAAAAHAAYABAAAAAEAAAAIAAQABAAHAAEAAAAIAAUABAAHAAEAAAAIAAYABAAHAAEAAAAJAAQABAAHAAEAAAAKAAQABAAHAAEAAAAEAAcABAAHAAEAAAAEAAgABAAHAAEAAAAEAAkABAAHAAEAAAAEAAoABAAHAAEAAAAFAAcABAAAAAEAAAAFAAgABAAAAAEAAAAFAAkABAAAAAEAAAAFAAoABAAHAAEAAAAGAAcABAAAAAEAAAAGAAgABAAAAAEAAAAGAAkABAAAAAEAAAAGAAoABAAHAAEAAAAHAAcABAAAAAEAAAAHAAgABAAAAAEAAAAHAAkABAAAAAEAAAAHAAoABAAHAAEAAAAIAAcABAAHAAEAAAAIAAgABAAHAAEAAAAIAAkABAAHAAEAAAAIAAoABAAHAAEAAAAAAAAABAAHAAEAAAABAAAABAAHAAEAAAACAAAABAAHAAEAAAADAAAABAAHAAEAAAAEAAAABAAHAAEAAAAFAAAABAAHAAEAAAAGAAAABAAHAAEAAAAHAAAABAAHAAEAAAAIAAAABAAHAAEAAAAJAAAABAAHAAEAAAAKAAAABAAHAAEAAAA=")
 tile_set = SubResource("TileSet_2s7wk")
 
-[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("MAP")]
+[node name="Player" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("3_4oyx3")]
 position = Vector2(160, 160)
-script = ExtResource("3_mitpk")
 MAP = NodePath("..")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("4_xwg0w")
-
-[node name="MovementComponent" parent="Player" instance=ExtResource("5_71wiv")]
-acceleration = 2000.0
-max_velocity = 4000.0
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("6_0udeq")]
 position = Vector2(480, 160)

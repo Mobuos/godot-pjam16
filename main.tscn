@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8u6gcubkm7nb"]
+[gd_scene load_steps=13 format=3 uid="uid://c8u6gcubkm7nb"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_jts1e"]
 [ext_resource type="PackedScene" uid="uid://ddl8o02fnd02t" path="res://Maps/map_1.tscn" id="2_lwi2x"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Components/shaker_component.gd" id="3_hkyro"]
 [ext_resource type="PackedScene" uid="uid://dynbwccbp16l5" path="res://Maps/map_3.tscn" id="4_7wvrk"]
 [ext_resource type="Script" path="res://camera.gd" id="4_fymuv"]
+[ext_resource type="PackedScene" uid="uid://cnruarje0jy8d" path="res://Maps/map_4.tscn" id="5_pthp5"]
 [ext_resource type="PackedScene" uid="uid://ck1bg1746hb27" path="res://Maps/map_end.tscn" id="5_wloe4"]
 [ext_resource type="Script" path="res://scene_transition_rect.gd" id="6_mxtl3"]
 
@@ -48,7 +49,7 @@ _data = {
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("CAMERA")]
 script = ExtResource("1_jts1e")
-maps = Array[PackedScene]([ExtResource("2_lwi2x"), ExtResource("3_dyb0c"), ExtResource("4_7wvrk"), ExtResource("5_wloe4")])
+maps = Array[PackedScene]([ExtResource("2_lwi2x"), ExtResource("3_dyb0c"), ExtResource("4_7wvrk"), ExtResource("5_pthp5"), ExtResource("5_wloe4")])
 CAMERA = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -60,6 +61,14 @@ script = ExtResource("4_fymuv")
 [node name="ShakerComponent" type="Node" parent="Camera2D"]
 script = ExtResource("3_hkyro")
 maxAngle = 0.0349066
+
+[node name="Button" type="Button" parent="Camera2D"]
+z_index = 5
+offset_left = -384.0
+offset_top = -384.0
+offset_right = -288.0
+offset_bottom = -320.0
+text = "reset"
 
 [node name="SceneTransitionRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -73,6 +82,7 @@ offset_right = 576.0
 offset_bottom = 448.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.0470588, 0.137255, 0.176471, 1)
 script = ExtResource("6_mxtl3")
 
@@ -80,3 +90,5 @@ script = ExtResource("6_mxtl3")
 libraries = {
 "": SubResource("AnimationLibrary_xlga5")
 }
+
+[connection signal="pressed" from="Camera2D/Button" to="." method="_on_reset_button_pressed"]

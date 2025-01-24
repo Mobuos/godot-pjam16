@@ -6,7 +6,7 @@ extends Node
 @export var acceleration := 40.0
 @export var max_velocity := 120.0
 @export var overshoot_distance: float = 8.0
-var velocity := 0.0
+var velocity := 10.0
 
 ## Moves given node towards target given current speed, acceleration and
 ## overshoot. Returns if the object is still moving
