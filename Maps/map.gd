@@ -11,9 +11,6 @@ var num_enemies_alive := 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("Initialize")
-	print(enemies_pos)
-	print(num_enemies_alive)
 	# Initialize enemy info
 	for enemy: Node2D in get_tree().get_nodes_in_group("Enemies"):
 		var tile_position := TILE_MAP.local_to_map(enemy.global_position)

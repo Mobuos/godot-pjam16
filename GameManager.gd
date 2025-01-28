@@ -12,9 +12,21 @@ func _ready() -> void:
 	load_map(0)
 
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		load_map(curr_map_index)
+	if event.is_action_pressed("cheat_left"):
+		if curr_map_index > 0:
+			curr_map_index -= 1
+			load_map(curr_map_index)
+	if event.is_action_pressed("cheat_right"):
+		next_map()
+
+
 func next_map() -> void:
-	curr_map_index += 1
-	load_map(curr_map_index)
+	if curr_map_index < maps.size() - 1:
+		curr_map_index += 1
+		load_map(curr_map_index)
 
 
 func load_map(num: int) -> void:

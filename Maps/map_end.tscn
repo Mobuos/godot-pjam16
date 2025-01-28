@@ -162,9 +162,34 @@ texture = ExtResource("4_jlogf")
 acceleration = 2000.0
 max_velocity = 4000.0
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 32.0
+offset_top = 617.0
+offset_right = 667.0
+offset_bottom = 673.0
+color = Color(0.111849, 0.126889, 0.252489, 1)
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 224.0
-offset_top = 736.0
-offset_right = 576.0
-offset_bottom = 960.0
-text = "cabou :)"
+offset_left = 41.0
+offset_top = 616.0
+offset_right = 266.0
+offset_bottom = 680.0
+theme_override_font_sizes/normal_font_size = 42
+text = "\"THE END\""
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 387.0
+offset_top = 630.0
+offset_right = 670.0
+offset_bottom = 694.0
+theme_override_font_sizes/normal_font_size = 27
+text = "Thanks for playing :)"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+offset_left = 165.0
+offset_top = 709.0
+offset_right = 652.0
+offset_bottom = 773.0
+theme_override_colors/default_color = Color(1, 1, 1, 0.501961)
+theme_override_font_sizes/normal_font_size = 19
+text = "Use Ctrl+Shift+Left/Right to replay levels :)"

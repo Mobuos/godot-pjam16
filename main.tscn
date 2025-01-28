@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://6oek52nkm10a" path="res://Maps/map_2.tscn" id="3_dyb0c"]
 [ext_resource type="Script" path="res://Components/shaker_component.gd" id="3_hkyro"]
 [ext_resource type="PackedScene" uid="uid://d4sy8w75jk1o" path="res://Maps/map_3.tscn" id="4_6xc2w"]
-[ext_resource type="PackedScene" uid="uid://cnruarje0jy8d" path="res://Maps/map_6.tscn" id="4_7wvrk"]
 [ext_resource type="Script" path="res://camera.gd" id="4_fymuv"]
-[ext_resource type="PackedScene" uid="uid://cnruarje0jy8d" path="res://Maps/map_6.tscn" id="5_pthp5"]
+[ext_resource type="PackedScene" uid="uid://cnruarje0jy8d" path="res://Maps/map_5.tscn" id="5_pthp5"]
 [ext_resource type="PackedScene" uid="uid://ck1bg1746hb27" path="res://Maps/map_end.tscn" id="5_wloe4"]
 [ext_resource type="Script" path="res://scene_transition_rect.gd" id="6_mxtl3"]
+[ext_resource type="PackedScene" uid="uid://tlmdgsuipfys" path="res://Maps/map_BONUS.tscn" id="7_ppkry"]
 
 [sub_resource type="Animation" id="Animation_sbdue"]
 resource_name = "Fade"
@@ -50,11 +50,12 @@ _data = {
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("CAMERA")]
 script = ExtResource("1_jts1e")
-maps = Array[PackedScene]([ExtResource("2_lwi2x"), ExtResource("3_dyb0c"), ExtResource("4_6xc2w"), ExtResource("4_7wvrk"), ExtResource("5_pthp5"), ExtResource("5_wloe4")])
+maps = Array[PackedScene]([ExtResource("2_lwi2x"), ExtResource("3_dyb0c"), ExtResource("4_6xc2w"), ExtResource("5_pthp5"), ExtResource("5_wloe4"), ExtResource("7_ppkry")])
 CAMERA = NodePath("Camera2D")
 
 [node name="SceneTransitionRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 100
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,14 +83,15 @@ script = ExtResource("4_fymuv")
 
 [node name="ShakerComponent" type="Node" parent="Camera2D"]
 script = ExtResource("3_hkyro")
-maxAngle = 0.0
+maxAngle = 0.0349066
+maxOffset = 32.0
 
 [node name="Button" type="Button" parent="Camera2D"]
 z_index = 5
 offset_left = -384.0
 offset_top = -384.0
-offset_right = -288.0
-offset_bottom = -320.0
-text = "reset"
+offset_right = -200.0
+offset_bottom = -351.0
+text = "Press [R] to RESET"
 
 [connection signal="pressed" from="Camera2D/Button" to="." method="_on_reset_button_pressed"]
