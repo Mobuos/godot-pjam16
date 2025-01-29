@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c8u6gcubkm7nb"]
+[gd_scene load_steps=26 format=3 uid="uid://c8u6gcubkm7nb"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_jts1e"]
 [ext_resource type="PackedScene" uid="uid://ddl8o02fnd02t" path="res://Maps/map_1.tscn" id="2_lwi2x"]
@@ -15,7 +15,6 @@
 [ext_resource type="AudioStream" uid="uid://bv3u1nili7bpa" path="res://sounds/bang2.wav" id="12_if0u8"]
 [ext_resource type="FontFile" uid="uid://bo3njytv8bo88" path="res://m6x11plus.ttf" id="12_ptcck"]
 [ext_resource type="AudioStream" uid="uid://d3o2jcb85bik3" path="res://sounds/background.wav" id="13_cunkf"]
-[ext_resource type="AudioStream" uid="uid://bk65wi3lmua12" path="res://sounds/bangh1.wav" id="14_i8c8d"]
 [ext_resource type="AudioStream" uid="uid://n50db1uovf2f" path="res://sounds/bangl1.wav" id="15_d4tid"]
 [ext_resource type="AudioStream" uid="uid://dfwmro0a34cek" path="res://sounds/bangl2.wav" id="16_soxkw"]
 [ext_resource type="AudioStream" uid="uid://dcsyhsvuj5jei" path="res://sounds/bangl3.wav" id="17_6fsn0"]
@@ -75,11 +74,10 @@ stream_2/stream = ExtResource("17_6fsn0")
 stream_3/stream = ExtResource("18_c82g6")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ruwgc"]
-random_pitch = 1.26
+random_pitch = 1.6
 random_volume_offset_db = 1.36
-streams_count = 2
-stream_0/stream = ExtResource("14_i8c8d")
-stream_1/stream = ExtResource("11_vlqrg")
+streams_count = 1
+stream_0/stream = ExtResource("11_vlqrg")
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("CAMERA")]
 script = ExtResource("1_jts1e")
@@ -144,7 +142,7 @@ max_polyphony = 3
 [node name="Heavy Bangs" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_ruwgc")
 volume_db = -6.356
-pitch_scale = 0.84
+pitch_scale = 0.72
 max_polyphony = 3
 
 [node name="Background" type="AudioStreamPlayer" parent="."]

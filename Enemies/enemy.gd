@@ -24,6 +24,7 @@ func _physics_process(delta: float) -> void:
 			
 			if alive:
 				MAP.kill_enemy()
+				Global.play(Global.Bangs.HEAVY)
 				alive = false
 			
 			#TODO: Signal further?
@@ -38,11 +39,11 @@ func _physics_process(delta: float) -> void:
 					HIT_PARTICLES.rotation = PI * 0
 				Vector2i(-1, 0):
 					HIT_PARTICLES.rotation = PI * 1
-			$HitParticles.restart()
-			$HitParticles.emitting = true
+			HIT_PARTICLES.restart()
+			HIT_PARTICLES.emitting = true
 			
 			shaker.increase_trauma2(last_direction * 0.1)
-			Global.play(Global.Bangs.LIGHT)
+				
 			sprite.animation = "Dead"
 
 func _on_hit(direction: Vector2i, velocity: float, enemy: Enemy) -> void:
