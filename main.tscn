@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8u6gcubkm7nb"]
+[gd_scene load_steps=25 format=3 uid="uid://c8u6gcubkm7nb"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_jts1e"]
 [ext_resource type="PackedScene" uid="uid://ddl8o02fnd02t" path="res://Maps/map_1.tscn" id="2_lwi2x"]
@@ -10,6 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://ck1bg1746hb27" path="res://Maps/map_end.tscn" id="5_wloe4"]
 [ext_resource type="Script" path="res://scene_transition_rect.gd" id="6_mxtl3"]
 [ext_resource type="PackedScene" uid="uid://tlmdgsuipfys" path="res://Maps/map_BONUS.tscn" id="7_ppkry"]
+[ext_resource type="AudioStream" uid="uid://dy3nja8peq787" path="res://sounds/bang1.wav" id="11_vlqrg"]
+[ext_resource type="AudioStream" uid="uid://bv3u1nili7bpa" path="res://sounds/bang2.wav" id="12_if0u8"]
+[ext_resource type="AudioStream" uid="uid://d3o2jcb85bik3" path="res://sounds/background.wav" id="13_cunkf"]
+[ext_resource type="AudioStream" uid="uid://bk65wi3lmua12" path="res://sounds/bangh1.wav" id="14_i8c8d"]
+[ext_resource type="AudioStream" uid="uid://n50db1uovf2f" path="res://sounds/bangl1.wav" id="15_d4tid"]
+[ext_resource type="AudioStream" uid="uid://dfwmro0a34cek" path="res://sounds/bangl2.wav" id="16_soxkw"]
+[ext_resource type="AudioStream" uid="uid://dcsyhsvuj5jei" path="res://sounds/bangl3.wav" id="17_6fsn0"]
+[ext_resource type="AudioStream" uid="uid://ciryucqnilgcw" path="res://sounds/bangl4.wav" id="18_c82g6"]
 
 [sub_resource type="Animation" id="Animation_sbdue"]
 resource_name = "Fade"
@@ -47,6 +55,29 @@ _data = {
 "Fade": SubResource("Animation_sbdue"),
 "RESET": SubResource("Animation_iinkj")
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_736g7"]
+random_pitch = 1.5
+random_volume_offset_db = 0.45
+streams_count = 2
+stream_0/stream = ExtResource("11_vlqrg")
+stream_1/stream = ExtResource("12_if0u8")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hb7lw"]
+random_pitch = 1.43
+random_volume_offset_db = 1.14
+streams_count = 4
+stream_0/stream = ExtResource("15_d4tid")
+stream_1/stream = ExtResource("16_soxkw")
+stream_2/stream = ExtResource("17_6fsn0")
+stream_3/stream = ExtResource("18_c82g6")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ruwgc"]
+random_pitch = 1.26
+random_volume_offset_db = 1.36
+streams_count = 2
+stream_0/stream = ExtResource("14_i8c8d")
+stream_1/stream = ExtResource("11_vlqrg")
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("CAMERA")]
 script = ExtResource("1_jts1e")
@@ -93,5 +124,28 @@ offset_top = -384.0
 offset_right = -200.0
 offset_bottom = -351.0
 text = "Press [R] to RESET"
+
+[node name="Bangs" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_736g7")
+volume_db = -12.711
+pitch_scale = 0.76
+max_polyphony = 3
+
+[node name="Light Bangs" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_hb7lw")
+volume_db = -12.133
+pitch_scale = 0.84
+max_polyphony = 3
+
+[node name="Heavy Bangs" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_ruwgc")
+volume_db = -6.356
+pitch_scale = 0.84
+max_polyphony = 3
+
+[node name="Background" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_cunkf")
+volume_db = -15.6
+max_polyphony = 2
 
 [connection signal="pressed" from="Camera2D/Button" to="." method="_on_reset_button_pressed"]

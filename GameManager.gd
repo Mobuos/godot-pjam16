@@ -1,3 +1,4 @@
+class_name GameManager
 extends Node
 
 @export var maps: Array[PackedScene]
@@ -9,6 +10,10 @@ var curr_map: Map
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.bangs = $"Bangs"
+	Global.bangs_heavy = $"Heavy Bangs"
+	Global.bangs_light = $"Light Bangs"
+	
 	load_map(0)
 
 
@@ -30,6 +35,7 @@ func next_map() -> void:
 
 
 func load_map(num: int) -> void:
+	$Background.play()
 	if maps.size() > curr_map_index:
 		set_process_input(false)
 		scene_transition._anim_player.play("Fade")
@@ -46,7 +52,6 @@ func load_map(num: int) -> void:
 		await scene_transition._anim_player.animation_finished
 		
 		set_process_input(true)
-
 
 func _on_reset_button_pressed() -> void:
 	load_map(curr_map_index)

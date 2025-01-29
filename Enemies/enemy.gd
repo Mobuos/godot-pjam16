@@ -28,8 +28,21 @@ func _physics_process(delta: float) -> void:
 			
 			#TODO: Signal further?
 			# Remember to move this elsewhere if we signal further in the future
+			
+			match last_direction:
+				Vector2i(0, 1):
+					rotation = PI * 0.5
+				Vector2i(0, -1):
+					rotation = PI * 1.5
+				Vector2i(1, 0):
+					rotation = PI * 0
+				Vector2i(-1, 0):
+					rotation = PI * 1
+			$HitParticles.restart()
+			$HitParticles.emitting = true
+			
 			shaker.increase_trauma2(last_direction * 0.1)
-			#TODO: - Sound effect
+			Global.play(Global.Bangs.LIGHT)
 			$Sprite2D.texture = dead_texture
 
 func _on_hit(direction: Vector2i, velocity: float, enemy: Enemy) -> void:
@@ -38,7 +51,7 @@ func _on_hit(direction: Vector2i, velocity: float, enemy: Enemy) -> void:
 		_freeze_frame(0.001, 0.05)
 		
 		shaker.increase_trauma2(direction * 0.3)
-		#TODO: sound effect
+		Global.play(Global.Bangs.LIGHT)
 		cMovement.velocity = max(1000.0, velocity * 1.2)
 		
 		# Find target position and start movement

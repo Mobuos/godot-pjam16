@@ -39,6 +39,7 @@ func kill_enemy() -> void:
 	if num_enemies_alive > 0:
 		num_enemies_alive -= 1
 		if num_enemies_alive <= 0:
+			print("clear")
 			level_clear.emit()
 
 

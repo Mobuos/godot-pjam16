@@ -58,9 +58,21 @@ func _physics_process(delta: float) -> void:
 				if (last_velocity < 50):
 					pass
 				else:
-					#TODO: sound effect
+					# Hitting a wall
+					Global.play(Global.Bangs.MEDIUM)
 					shaker.increase_trauma2(direction * 0.5)
-					#TODO: particles
+					
+					match direction:
+						Vector2i(0, 1):
+							rotation = PI * 0.5
+						Vector2i(0, -1):
+							rotation = PI * 1.5
+						Vector2i(1, 0):
+							rotation = PI * 0
+						Vector2i(-1, 0):
+							rotation = PI * 1
+					$HitParticles.restart()
+					$HitParticles.emitting = true
 
 func _process(delta: float) -> void:
 	if input_life > 0.0:
