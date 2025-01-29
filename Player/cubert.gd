@@ -96,10 +96,12 @@ func _process(delta: float) -> void:
 		hit_tile = MAP.tile_raycast(current_tile, direction)
 		var target_tile := hit_tile - direction
 		target_position = MAP.map_to_local(target_tile)
-		is_moving = true
 		
-		# Set movement sprite
-		sprite.animation = "Move"
+		if target_tile != current_tile:
+			is_moving = true
+		
+			# Set movement sprite
+			sprite.animation = "Move"
 
 
 func _freeze_frame(time_scale: float, duration: float) -> void:
