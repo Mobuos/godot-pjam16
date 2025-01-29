@@ -5,14 +5,13 @@ extends Node2D
 @export var MAP: Map
 
 @onready var shaker: ShakerComponent = Global.shaker
+@onready var sprite := $AnimatedSprite2D as AnimatedSprite2D
 
 var target_position: Vector2i
 var is_moving := false
 var last_direction: Vector2i
 
 var alive := true
-var dead_texture: Texture2D = preload("res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/purple_character.png")
-
 
 func _physics_process(delta: float) -> void:
 	if is_moving:
@@ -43,7 +42,7 @@ func _physics_process(delta: float) -> void:
 			
 			shaker.increase_trauma2(last_direction * 0.1)
 			Global.play(Global.Bangs.LIGHT)
-			$Sprite2D.texture = dead_texture
+			sprite.animation = "Dead"
 
 func _on_hit(direction: Vector2i, velocity: float, enemy: Enemy) -> void:
 	if enemy == self:

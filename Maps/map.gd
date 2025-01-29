@@ -9,8 +9,21 @@ signal level_clear
 var enemies_pos := {}
 var num_enemies_alive := 0
 
+var debug_label: RichTextLabel
+
+func _input(event: InputEvent) -> void:
+	# Mouse in viewport coordinates.
+	if event is InputEventMouseButton:
+		print("Mouse Click/Unclick at: ", event.position)
+		
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	debug_label = RichTextLabel.new()
+	debug_label.size = Vector2(100., 100.)
+	debug_label.bbcode_enabled = true
+	debug_label.text = "[color=white]test[/color]"
+	add_child(debug_label)
 	# Initialize enemy info
 	for enemy: Node2D in get_tree().get_nodes_in_group("Enemies"):
 		var tile_position := TILE_MAP.local_to_map(enemy.global_position)
@@ -18,11 +31,16 @@ func _ready() -> void:
 		assert(not enemies_pos.has(tile_position))
 		enemies_pos[tile_position] = enemy
 		num_enemies_alive += 1
-	
+
 	# Position camera
 	var rect: Rect2i = TILE_MAP.get_used_rect()
 	Global.camera.position = TILE_MAP.map_to_local(rect.get_center())
-	
+
+func _process(delta: float) -> void:
+	var mouse_pos = Global.camera.get_global_mouse_position()
+	debug_label.global_position = mouse_pos
+	debug_label.text = "[color=white]%s[/color]" % TILE_MAP.local_to_map(TILE_MAP.to_local(mouse_pos))
+
 
 ## Updates the position of an enemy in the logical map
 ## Returns false if the enemy wasn't found

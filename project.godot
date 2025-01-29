@@ -94,4 +94,4 @@ cheat_right={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.0476464, 0.138838, 0.17589, 1)
+environment/defaults/default_clear_color=Color(0.186385, 0.176468, 0.27619, 1)

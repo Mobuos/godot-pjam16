@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c8u6gcubkm7nb"]
+[gd_scene load_steps=27 format=3 uid="uid://c8u6gcubkm7nb"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_jts1e"]
 [ext_resource type="PackedScene" uid="uid://ddl8o02fnd02t" path="res://Maps/map_1.tscn" id="2_lwi2x"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://tlmdgsuipfys" path="res://Maps/map_BONUS.tscn" id="7_ppkry"]
 [ext_resource type="AudioStream" uid="uid://dy3nja8peq787" path="res://sounds/bang1.wav" id="11_vlqrg"]
 [ext_resource type="AudioStream" uid="uid://bv3u1nili7bpa" path="res://sounds/bang2.wav" id="12_if0u8"]
+[ext_resource type="FontFile" uid="uid://bo3njytv8bo88" path="res://m6x11plus.ttf" id="12_ptcck"]
 [ext_resource type="AudioStream" uid="uid://d3o2jcb85bik3" path="res://sounds/background.wav" id="13_cunkf"]
 [ext_resource type="AudioStream" uid="uid://bk65wi3lmua12" path="res://sounds/bangh1.wav" id="14_i8c8d"]
 [ext_resource type="AudioStream" uid="uid://n50db1uovf2f" path="res://sounds/bangl1.wav" id="15_d4tid"]
@@ -87,6 +88,7 @@ CAMERA = NodePath("Camera2D")
 
 [node name="SceneTransitionRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 100
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,23 +109,25 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(352, 352)
 ignore_rotation = false
-zoom = Vector2(0.9, 0.9)
+zoom = Vector2(2, 2)
 script = ExtResource("4_fymuv")
 
 [node name="ShakerComponent" type="Node" parent="Camera2D"]
 script = ExtResource("3_hkyro")
 maxAngle = 0.0349066
-maxOffset = 32.0
+maxOffset = 12.0
 
-[node name="Button" type="Button" parent="Camera2D"]
+[node name="Button" type="RichTextLabel" parent="Camera2D"]
 z_index = 5
-offset_left = -384.0
-offset_top = -384.0
-offset_right = -200.0
-offset_bottom = -351.0
-text = "Press [R] to RESET"
+offset_left = -179.0
+offset_top = -180.0
+offset_right = -100.0
+offset_bottom = -160.0
+theme_override_colors/default_color = Color(1, 1, 1, 0.352941)
+theme_override_fonts/normal_font = ExtResource("12_ptcck")
+theme_override_font_sizes/normal_font_size = 18
+text = "(R) to RESET"
 
 [node name="Bangs" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_736g7")
@@ -147,5 +151,3 @@ max_polyphony = 3
 stream = ExtResource("13_cunkf")
 volume_db = -15.6
 max_polyphony = 2
-
-[connection signal="pressed" from="Camera2D/Button" to="." method="_on_reset_button_pressed"]

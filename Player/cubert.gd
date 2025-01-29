@@ -3,7 +3,8 @@ extends Node2D
 @export var MAP: Map
 @onready var cMovement := $MovementComponent as MovementComponent
 @onready var shaker: ShakerComponent = Global.shaker
-
+@onready var sprite := $AnimatedSprite2D as AnimatedSprite2D
+@onready var HIT_PARTICLES := $HitParticles as GPUParticles2D
 
 # Input
 var curr_input: String = ""
@@ -28,6 +29,14 @@ var _input2direction = {
 
 
 func _ready() -> void:
+	# Fix position to closest tile, I don't know why this fixes
+	# The issue I was having but it does
+	# Also this isn't needed anywhere else, I really don't understand
+	position = MAP.map_to_local(MAP.local_to_map(position))
+	
+	print("[DEBUG] Info at ready:")
+	print(" pos: ", position)
+	print(" global_pos: ", global_position)
 	pass
 
 
@@ -42,9 +51,11 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_moving:
+		
 		# If we finished moving:
 		if not cMovement.move_to(delta, self, target_position):
 			is_moving = false
+			sprite.animation = "Idle"
 			last_input = ""
 			
 			var last_velocity := cMovement.velocity
@@ -64,15 +75,15 @@ func _physics_process(delta: float) -> void:
 					
 					match direction:
 						Vector2i(0, 1):
-							rotation = PI * 0.5
+							HIT_PARTICLES.rotation = PI * 0
 						Vector2i(0, -1):
-							rotation = PI * 1.5
+							HIT_PARTICLES.rotation = PI * 1
 						Vector2i(1, 0):
-							rotation = PI * 0
+							HIT_PARTICLES.rotation = PI * 1.5
 						Vector2i(-1, 0):
-							rotation = PI * 1
-					$HitParticles.restart()
-					$HitParticles.emitting = true
+							HIT_PARTICLES.rotation = PI * 0.5
+					HIT_PARTICLES.restart()
+					HIT_PARTICLES.emitting = true
 
 func _process(delta: float) -> void:
 	if input_life > 0.0:
@@ -90,6 +101,13 @@ func _process(delta: float) -> void:
 		var target_tile := hit_tile - direction
 		target_position = MAP.map_to_local(target_tile)
 		is_moving = true
+		
+		# Set movement sprite
+		sprite.animation = "Move"
+		
+		print("[DEBUG] Info at hit_tile:")
+		print(" pos: ", position)
+		print(" global_pos: ", global_position)
 
 
 func _freeze_frame(time_scale: float, duration: float) -> void:

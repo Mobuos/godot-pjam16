@@ -1,31 +1,78 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnk1gsvm0xhxg"]
+[gd_scene load_steps=14 format=3 uid="uid://bnk1gsvm0xhxg"]
 
 [ext_resource type="Script" path="res://Player/cubert.gd" id="1_5bvnp"]
 [ext_resource type="Texture2D" uid="uid://dqjihjiabjukh" path="res://kenney_scribble-dungeons/PNG/Default (64px)/Characters/yellow_character.png" id="2_3l8mh"]
 [ext_resource type="PackedScene" uid="uid://bopdvgyfkewbd" path="res://Components/movement_component.tscn" id="3_3xe21"]
+[ext_resource type="Texture2D" uid="uid://dv42gu6jig2tx" path="res://Player/CubeIdle.png" id="4_qqe7k"]
+[ext_resource type="Texture2D" uid="uid://davkv1h6d78v2" path="res://Player/CubeMove.png" id="5_8egbv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogsk5"]
+atlas = ExtResource("4_qqe7k")
+region = Rect2(0, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5osu"]
+atlas = ExtResource("4_qqe7k")
+region = Rect2(25, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jysn"]
+atlas = ExtResource("4_qqe7k")
+region = Rect2(50, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_831oo"]
+atlas = ExtResource("4_qqe7k")
+region = Rect2(75, 0, 25, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_84aqq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogsk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5osu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jysn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_831oo")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_8egbv")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 5.0
+}]
 
 [sub_resource type="Curve" id="Curve_nsrqt"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.349481, 0.899719), -0.888795, -0.888795, 0, 0, Vector2(1, 0.0974754), 0.740068, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.639798, 0.18515), 0.243538, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_owvm5"]
 curve = SubResource("Curve_nsrqt")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iuqb1"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(16, 0, 0)
+emission_shape_offset = Vector3(12.5, 0, 0)
 emission_shape = 3
-emission_box_extents = Vector3(1, 32, 1)
+emission_box_extents = Vector3(1, 25, 1)
 angle_min = -720.0
 angle_max = 720.0
+spread = 51.793
 initial_velocity_min = 803.08
 initial_velocity_max = 1000.0
 gravity = Vector3(0, 0, 0)
-scale_max = 4.08
+scale_max = 3.0
 scale_curve = SubResource("CurveTexture_owvm5")
-color = Color(0.129558, 0.129558, 0.129558, 1)
-hue_variation_min = -0.1
-hue_variation_max = 0.07
+color = Color(0.188235, 0.376471, 0.509804, 1)
+hue_variation_min = -0.09
+hue_variation_max = 0.1
 turbulence_enabled = true
 turbulence_noise_strength = 0.5
 turbulence_noise_scale = 5.463
@@ -41,11 +88,19 @@ acceleration = 2000.0
 max_velocity = 4000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_3l8mh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 4.71239
+sprite_frames = SubResource("SpriteFrames_84aqq")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.790282
 
 [node name="HitParticles" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 100
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_iuqb1")
 lifetime = 0.3
 one_shot = true
