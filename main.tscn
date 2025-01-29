@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://c8u6gcubkm7nb"]
+[gd_scene load_steps=26 format=3 uid="uid://c8u6gcubkm7nb"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_jts1e"]
 [ext_resource type="PackedScene" uid="uid://ddl8o02fnd02t" path="res://Maps/map_1.tscn" id="2_lwi2x"]
+[ext_resource type="PackedScene" uid="uid://l4oruiyclrap" path="res://Maps/map_6.tscn" id="2_phn6w"]
 [ext_resource type="PackedScene" uid="uid://6oek52nkm10a" path="res://Maps/map_2.tscn" id="3_dyb0c"]
 [ext_resource type="Script" path="res://Components/shaker_component.gd" id="3_hkyro"]
 [ext_resource type="PackedScene" uid="uid://d4sy8w75jk1o" path="res://Maps/map_3.tscn" id="4_6xc2w"]
@@ -81,12 +82,11 @@ stream_1/stream = ExtResource("11_vlqrg")
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("CAMERA")]
 script = ExtResource("1_jts1e")
-maps = Array[PackedScene]([ExtResource("2_lwi2x"), ExtResource("3_dyb0c"), ExtResource("4_6xc2w"), ExtResource("5_pthp5"), ExtResource("5_wloe4"), ExtResource("7_ppkry")])
+maps = Array[PackedScene]([ExtResource("2_lwi2x"), ExtResource("3_dyb0c"), ExtResource("4_6xc2w"), ExtResource("5_pthp5"), ExtResource("2_phn6w"), ExtResource("5_wloe4"), ExtResource("7_ppkry")])
 CAMERA = NodePath("Camera2D")
 
 [node name="SceneTransitionRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 100
 anchors_preset = 15
 anchor_right = 1.0
