@@ -33,10 +33,6 @@ func _ready() -> void:
 	# The issue I was having but it does
 	# Also this isn't needed anywhere else, I really don't understand
 	position = MAP.map_to_local(MAP.local_to_map(position))
-	
-	print("[DEBUG] Info at ready:")
-	print(" pos: ", position)
-	print(" global_pos: ", global_position)
 	pass
 
 
@@ -104,10 +100,6 @@ func _process(delta: float) -> void:
 		
 		# Set movement sprite
 		sprite.animation = "Move"
-		
-		print("[DEBUG] Info at hit_tile:")
-		print(" pos: ", position)
-		print(" global_pos: ", global_position)
 
 
 func _freeze_frame(time_scale: float, duration: float) -> void:

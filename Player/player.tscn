@@ -96,7 +96,7 @@ rotation = 4.71239
 sprite_frames = SubResource("SpriteFrames_84aqq")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.790282
+frame_progress = 0.87243
 
 [node name="HitParticles" type="GPUParticles2D" parent="."]
 emitting = false

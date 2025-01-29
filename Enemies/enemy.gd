@@ -6,6 +6,7 @@ extends Node2D
 
 @onready var shaker: ShakerComponent = Global.shaker
 @onready var sprite := $AnimatedSprite2D as AnimatedSprite2D
+@onready var HIT_PARTICLES := $HitParticles as GPUParticles2D
 
 var target_position: Vector2i
 var is_moving := false
@@ -30,13 +31,13 @@ func _physics_process(delta: float) -> void:
 			
 			match last_direction:
 				Vector2i(0, 1):
-					rotation = PI * 0.5
+					HIT_PARTICLES.rotation = PI * 0.5
 				Vector2i(0, -1):
-					rotation = PI * 1.5
+					HIT_PARTICLES.rotation = PI * 1.5
 				Vector2i(1, 0):
-					rotation = PI * 0
+					HIT_PARTICLES.rotation = PI * 0
 				Vector2i(-1, 0):
-					rotation = PI * 1
+					HIT_PARTICLES.rotation = PI * 1
 			$HitParticles.restart()
 			$HitParticles.emitting = true
 			
