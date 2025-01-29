@@ -372,7 +372,7 @@ position = Vector2(212, 187)
 MAP = NodePath("..")
 
 [node name="Enemy3" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("6_xqhld")]
-position = Vector2(137, 62)
+position = Vector2(162, 62)
 MAP = NodePath("..")
 
 [node name="Enemy5" parent="." node_paths=PackedStringArray("MAP") instance=ExtResource("6_xqhld")]

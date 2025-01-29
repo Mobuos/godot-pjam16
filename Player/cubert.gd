@@ -97,9 +97,9 @@ func _process(delta: float) -> void:
 		var target_tile := hit_tile - direction
 		target_position = MAP.map_to_local(target_tile)
 		
-		if target_tile != current_tile:
-			is_moving = true
+		is_moving = true
 		
+		if target_tile != current_tile:
 			# Set movement sprite
 			sprite.animation = "Move"
 
