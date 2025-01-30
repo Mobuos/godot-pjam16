@@ -11,11 +11,10 @@ var num_enemies_alive := 0
 
 #var debug_label: RichTextLabel
 
-func _input(event: InputEvent) -> void:
-	# Mouse in viewport coordinates.
-	if event is InputEventMouseButton:
-		print("Mouse Click/Unclick at: ", event.position)
-		
+#func _input(event: InputEvent) -> void:
+	## Mouse in viewport coordinates.
+	#if event is InputEventMouseButton:
+		#print("Mouse Click/Unclick at: ", event.position)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -57,7 +56,6 @@ func kill_enemy() -> void:
 	if num_enemies_alive > 0:
 		num_enemies_alive -= 1
 		if num_enemies_alive <= 0:
-			print("clear")
 			level_clear.emit()
 
 

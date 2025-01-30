@@ -14,6 +14,12 @@ var last_direction: Vector2i
 
 var alive := true
 
+func _ready() -> void:
+	# Use particles at the beginning to avoid freezes later
+	if not Global.loaded_enemy:
+		HIT_PARTICLES.emitting = true
+		Global.loaded_enemy = true
+
 func _physics_process(delta: float) -> void:
 	if is_moving:
 		# If we finished moving:
@@ -26,6 +32,7 @@ func _physics_process(delta: float) -> void:
 				MAP.kill_enemy()
 				Global.play(Global.Bangs.HEAVY)
 				alive = false
+				
 			
 			#TODO: Signal further?
 			# Remember to move this elsewhere if we signal further in the future
@@ -63,7 +70,7 @@ func _on_hit(direction: Vector2i, velocity: float, enemy: Enemy) -> void:
 		is_moving = true
 		
 		# Enemy should exist in the logical map
-		assert(MAP.update_enemy(current_tile, target_tile))
+		MAP.update_enemy(current_tile, target_tile)
 
 
 func _freeze_frame(time_scale: float, duration: float) -> void:

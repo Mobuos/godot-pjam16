@@ -425,10 +425,10 @@ position = Vector2(62, 87)
 MAP = NodePath("..")
 
 [node name="Label" type="RichTextLabel" parent="."]
-offset_left = 166.0
+offset_left = 190.0
 offset_top = 285.0
-offset_right = 391.0
-offset_bottom = 335.0
+offset_right = 342.0
+offset_bottom = 322.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("5_w3taj")
 theme_override_font_sizes/normal_font_size = 36

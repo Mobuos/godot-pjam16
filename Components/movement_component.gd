@@ -14,7 +14,6 @@ var velocity := 10.0
 ## Does not reset its own speed after finishing.
 func move_to(delta: float, node: Node2D, 
 		target_position: Vector2) -> bool:
-	
 	var direction: Vector2i = (target_position - node.global_position).normalized()
 	var distance_to_target: float = node.global_position.distance_to(target_position)
 	

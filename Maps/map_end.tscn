@@ -382,11 +382,11 @@ theme_override_font_sizes/normal_font_size = 18
 text = "Thanks for Playing!"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="."]
-offset_left = -3.0
-offset_top = 282.0
-offset_right = 279.0
-offset_bottom = 307.0
+offset_left = -13.0
+offset_top = 270.0
+offset_right = 282.0
+offset_bottom = 295.0
 theme_override_colors/default_color = Color(1, 1, 1, 0.376471)
 theme_override_fonts/normal_font = ExtResource("4_pfa6o")
 theme_override_font_sizes/normal_font_size = 18
-text = "Use Ctrl+Shift+Left/Right to replay levels :)"
+text = "Use Ctrl+Shift+Left/Right to \"replay\" levels ;)"

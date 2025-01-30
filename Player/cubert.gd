@@ -33,7 +33,11 @@ func _ready() -> void:
 	# The issue I was having but it does
 	# Also this isn't needed anywhere else, I really don't understand
 	position = MAP.map_to_local(MAP.local_to_map(position))
-	pass
+	
+	# Use particles at the beginning to avoid freezes later
+	if not Global.loaded_player:
+		HIT_PARTICLES.emitting = true
+		Global.loaded_player = true
 
 
 func _input(event: InputEvent) -> void:

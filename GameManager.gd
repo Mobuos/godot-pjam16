@@ -14,6 +14,8 @@ func _ready() -> void:
 	Global.bangs_heavy = $"Heavy Bangs"
 	Global.bangs_light = $"Light Bangs"
 	
+	await(get_tree().create_timer(1, true, false, true).timeout)
+	%Warning.queue_free()
 	load_map(0)
 
 

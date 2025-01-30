@@ -4,6 +4,10 @@ extends Node
 var shaker: ShakerComponent
 var camera: Camera2D
 
+var loaded_player := false
+var loaded_enemy := false
+var loaded_bonus := false
+
 
 ## Audio
 enum Bangs {MEDIUM, LIGHT, HEAVY}
